@@ -1,12 +1,12 @@
-name: CI
+name: Testing first
 on:
-  push:
+  pull_request:
     branches:
-      -main
+      - master
 
 jobs:
   flutter_test:
-    name: Run flutter test & analyze
+    name: Run flutter test and analyze
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,6 +16,8 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: "stable"
-      - run: flutter pub get 
+      - run: flutter pub get
       - run: flutter analyze
       - run: flutter test
+
+      
