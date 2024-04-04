@@ -9,9 +9,9 @@
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
     "geist": "^1.2.1",
-    "next": "latest",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "next": "^14.1.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "typescript": "5.3.3"
   },
   "devDependencies": {
