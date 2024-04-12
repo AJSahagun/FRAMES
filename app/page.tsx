@@ -5,7 +5,8 @@ import ConnectSupabaseSteps from "./_components/tutorial/ConnectSupabaseSteps";
 import SignUpUserSteps from "./_components/tutorial/SignUpUserSteps";
 import Header from "./_components/Header";
 
-export default async function Index() {
+
+export default async function LandingPage() {
   const canInitSupabaseClient = () => {
     // This function is just for the interactive tutorial.
     // Feel free to remove it once you have Supabase connected.
@@ -21,7 +22,7 @@ export default async function Index() {
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
+      <nav className="w-full flex justify-center h-16">
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
           <DeployButton />
           {isSupabaseConnected && <AuthButton />}
@@ -36,7 +37,7 @@ export default async function Index() {
         </main>
       </div>
 
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
+      <footer className="w-full border-t flex justify-center text-center text-xs">
         <p>
           Powered by{" "}
           <a

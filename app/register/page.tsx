@@ -1,3 +1,7 @@
-export default function Page() {
-    return <p>Register Page (Placeholder)</p>;
+
+
+export default function Register() {
+    return (
+      <div>Placeholder</div>
+    )
 }
