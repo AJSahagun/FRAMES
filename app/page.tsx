@@ -1,9 +1,9 @@
-import DeployButton from "../components/DeployButton";
-import AuthButton from "../components/AuthButton";
+import DeployButton from "./_components/DeployButton";
+import AuthButton from "./_components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
-import ConnectSupabaseSteps from "@/components/tutorial/ConnectSupabaseSteps";
-import SignUpUserSteps from "@/components/tutorial/SignUpUserSteps";
-import Header from "@/components/Header";
+import ConnectSupabaseSteps from "./_components/tutorial/ConnectSupabaseSteps";
+import SignUpUserSteps from "./_components/tutorial/SignUpUserSteps";
+import Header from "./_components/Header";
 
 export default async function Index() {
   const canInitSupabaseClient = () => {
