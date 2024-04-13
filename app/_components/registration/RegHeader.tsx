@@ -1,18 +1,18 @@
 import Image from "next/image"
-import BSU_FSLogo from '../_components/BSU_FSLogo';
+import BSU_FSLogo from '../BSU_FSLogo';
 
-export default function Register() {
+export default function RegHeader() {
   return (
-    <div className="w-full h-screen overflow-hidden">
+    <div className="w-full relative h-auto">
       <div className="relative flex-1 ml-20 mt-16">
         <Image className=""
         src="/logos/FRAMES_title-logo.png"
         alt="FRAMES title logo"
         width={240}
         height={0} />
-      </div>
+    </div>
 
-      <div className="flex-2 w-1/3 mt-10">
+      <div className="">
         <BSU_FSLogo className="right-0 top-2" />
       </div>
 

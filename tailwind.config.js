@@ -7,17 +7,15 @@ module.exports = {
   ],
   theme: {
     extend: {
-      boxShadow: {
-        'inner-xl': 'inset 0 0 4px 25% rgb(0, 0, 0)', //not working 
-      },
 
       colors: {
         background: "hsl(var(--background))",
         primary: "hsl(var(--primary))",
-        secondary: "--secondary",
-        accent: "--accent",
+        secondary: "hsl(var(--secondary))",
+        accent: "hsl(var(--accent))",
+        sf: "hsla(var(--secondary-faded))",
 
-        foreground: "hsla(var(--foreground))",
+        foreground: "hsl(var(--foreground))",
         btn: {
           background: "hsl(var(--btn-background))",
           "background-hover": "hsl(var(--btn-background-hover))",
