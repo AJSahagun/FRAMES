@@ -1,5 +1,6 @@
-// import font
+import { noto_sans } from "./fonts";
 import "./globals.css";
+import NavBar from "./_components/landing-page/NavBar";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -19,7 +20,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-background text-foreground">
-        <main className="min-h-screen flex flex-col items-center">
+        <main className={`${noto_sans.className} antialiased min-h-screen flex flex-col items-center`}>
+          <NavBar />
           {children}
         </main>
       </body>
