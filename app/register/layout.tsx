@@ -1,6 +1,7 @@
 import React from 'react'
+import Register from './page';
 
-export default function RegisterPage({
+export default function RegisterLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -9,7 +10,7 @@ export default function RegisterPage({
     <html lang='en'>
       <body>
         <main>
-          {children}
+        <Register/>
         </main>
       </body>
 

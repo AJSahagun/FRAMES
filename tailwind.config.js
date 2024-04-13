@@ -7,9 +7,13 @@ module.exports = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'inner-xl': 'inset 0 0 4px 25% rgb(0, 0, 0)', //not working 
+      },
+
       colors: {
-        background: "hsla(var(--background))",
-        primary: "--primary",
+        background: "hsl(var(--background))",
+        primary: "hsl(var(--primary))",
         secondary: "--secondary",
         accent: "--accent",
 
