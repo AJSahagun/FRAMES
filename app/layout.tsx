@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-background text-foreground">
-        <main className={`${noto_sans.className} antialiased min-h-screen flex flex-col items-center`}>
+        <main className={`${noto_sans.className} antialiased min-h-screen flex flex-col items-center overflow-hidden`}>
           <NavBar />
           {children}
         </main>

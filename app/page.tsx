@@ -1,6 +1,7 @@
 import { poppins } from "./fonts";
 import Link from "next/link";
 import Image from "next/image";
+import BSU_FSLogo from "./_components/BSU_FSLogo";
 
 export default async function LandingPage() {
   return (
@@ -15,7 +16,7 @@ export default async function LandingPage() {
           <path d="M50 0H100L50 100H0L50 0Z" />
         </svg>
         <Image
-          className="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"
+          className="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full py-12"
           src="/library.jpg"
           alt="Picture of Batangas State University - Alangilan Campus Library"
           width={1157}
@@ -38,23 +39,24 @@ export default async function LandingPage() {
           <div className="flex items-center">
             <Link
               href="/register"
-              className={`${poppins.className} inline-flex items-center justify-center h-12 px-6 mr-6 uppercase font-semibold tracking-wide text-white transition duration-200 rounded shadow-md bg-red-400 hover:bg-red-700 focus:shadow-outline focus:outline-none`}
+              className={`${poppins.className} inline-flex items-center justify-center h-12 px-6 mr-6 uppercase font-semibold tracking-wide text-white transition duration-200 rounded shadow-md bg-primary hover:bg-red-500 focus:shadow-outline focus:outline-none`}
             >
               Register Now
             </Link>
             <Link
               href="/"
               aria-label=""
-              className="inline-flex items-center font-semibold text-gray-800 transition-colors duration-200 hover:text-red-700"
+              className="inline-flex items-center font-semibold text-gray-800 transition-colors duration-200 hover:text-primary"
             >
               Learn more
             </Link>
           </div>
-          <p className="inline-block px-3 py-px mb-4 text-xs font-light tracking-wider">
+          <p className="before:h-[1px] before:bg-gray-400 before:inline-block before:relative before:align-middle before:w-8 before:right-2 px-3 py-2 mb-4 text-xs font-light tracking-wider opacity-85">
             Powered by Techtonic
           </p>
         </div>
       </div>
+      <BSU_FSLogo className="right-0 bottom-5" />
     </div>
   );
 }
