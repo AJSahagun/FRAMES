@@ -1,3 +1,12 @@
-export default function Page() {
-    return <p>Check-info Page (Placeholder)</p>;
+import RegHeader from "@/app/_components/registration/RegHeader";
+
+export default function CheckInfo() {
+  return (
+    <>
+      <RegHeader/>
+
+      
+    </>
+
+  )
 }

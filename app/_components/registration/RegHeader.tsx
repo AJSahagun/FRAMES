@@ -4,7 +4,7 @@ import BSU_FSLogo from '../BSU_FSLogo';
 export default function RegHeader() {
   return (
     <div className="w-full relative h-auto">
-      <div className="relative flex-1 ml-20 mt-16">
+      <div className="relative flex-1 ml-20 mt-14">
         <Image className=""
         src="/logos/FRAMES_title-logo.png"
         alt="FRAMES title logo"
