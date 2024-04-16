@@ -1,20 +1,23 @@
 import Image from "next/image"
 import BSU_FSLogo from '../BSU_FSLogo';
 
-export default function RegHeader() {
-  return (
-    <div className="w-full relative h-auto">
-      <div className="relative flex-1 ml-20 mt-14">
-        <Image className=""
-        src="/logos/FRAMES_title-logo.png"
-        alt="FRAMES title logo"
-        width={240}
-        height={0} />
-    </div>
+interface RegHeaderProps {
+  className?: string;
+}
 
-      <div className="">
-        <BSU_FSLogo className="right-0 top-2" />
-      </div>
+export default function RegHeader(
+  {className}: RegHeaderProps
+) {
+  return (
+    <div className={`w-full flex flex-col-reverse ${className}`}>
+      <Image className="relative flex mt-7 ml-6"
+      src="/logos/FRAMES_title-logo.png"
+      alt="FRAMES title logo"
+      width={160}
+      height={0}
+      />
+      
+      <BSU_FSLogo className="top-0 right-0 relative" />
 
     </div>
   )
