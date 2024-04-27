@@ -1,10 +1,10 @@
-'use client'
+"use client"
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { poppins } from '../fonts';
 import Image from 'next/image';
 import BSU_FSLogo from '../_components/BSU_FSLogo';
-import { DeptDropdown, ProgramDropdown } from '../_components/registration/Dropdowns';
+import { ProgramDropdown } from '../_components/registration/Dropdowns';
 
 
 export default function InputInfo() {
@@ -19,13 +19,13 @@ export default function InputInfo() {
 
       <div className="w-full flex justify-center md:justify-start">
 
-        {/* link needs minor fix */}
+        {/* link needs minor fix*/}
         <Link href="/" className="flex w-full justify-center md:justify-start">
 
         <Image className= "w-3/5 ml-2 pt-16 min-[425px]:w-3/5 min-[425px]:mb-3 md:w-1/3 md:pt-14 md:ml-16 lg:w-2/5 lg:pl-18 xl:pl-20 xl:w-1/4 xl:pt-10"
         src="/logos/FRAMES_title-logo.png"
         alt="FRAMES title logo"
-        width={400}
+        width={300}
         height={0}
         />
         </Link>
