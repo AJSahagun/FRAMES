@@ -1,31 +1,39 @@
-"use client"
+'use client'
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { poppins } from '../fonts';
 import Image from 'next/image';
 import BSU_FSLogo from '../_components/BSU_FSLogo';
-import { ProgramDropdown } from '../_components/registration/Dropdowns';
-
+import { DeptDropdown, ProgramDropdown } from '../_components/registration/Dropdowns';
+import { useRouter } from 'next/navigation';
 
 export default function InputInfo() {
   const [selectedDept, setSelectedDept] = useState('');
 
+  const [firstName, setFirstName] = useState('');
+  const [middleName, setMiddleName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [srCode, setSrCode] = useState('');
+  const [department, setDepartment] = useState('');
+  const [program, setProgram] = useState('');
+
+  const student={srCode,firstName,middleName,lastName}
   const handleDeptChange = (dept: string) => {
     setSelectedDept(dept);
   };
-
+ 
   return (
     <div className="w-full relative bg-background ">
 
       <div className="w-full flex justify-center md:justify-start">
 
-        {/* link needs minor fix*/}
+        {/* link needs minor fix */}
         <Link href="/" className="flex w-full justify-center md:justify-start">
 
         <Image className= "w-3/5 ml-2 pt-16 min-[425px]:w-3/5 min-[425px]:mb-3 md:w-1/3 md:pt-14 md:ml-16 lg:w-2/5 lg:pl-18 xl:pl-20 xl:w-1/4 xl:pt-10"
         src="/logos/FRAMES_title-logo.png"
         alt="FRAMES title logo"
-        width={300}
+        width={400}
         height={0}
         />
         </Link>
@@ -48,13 +56,13 @@ export default function InputInfo() {
 
           <input
           maxLength={8}
-          type="number" placeholder="SR-CODE"
+          type="text" placeholder="SR-CODE" value={srCode} onChange={(e)=>setSrCode(e.target.value)}
           className="w-auto rounded-md bg-sf border-none mt-7 pl-5 pr-5 py-2 text-xs text-accent
           placeholder:text-xs placeholder-gray-400 border-1
           md:placeholder:text-sm md:py-2 md:mt-0 md:w-1/3
           lg:h-12 lg:ml-0 lg:rounded-lg xl:text-lg xl:mr-3  " />
 
-          <input type="text" placeholder="First Name"
+          <input type="text" placeholder="First Name" value={firstName} onChange={(e)=>setFirstName(e.target.value)}
           className="w-auto rounded-md bg-sf border-none pl-5 pr-5 py-2 text-xs text-accent
           placeholder:text-xs placeholder-gray-400
           md:placeholder:text-sm md:py-2 md:w-full
@@ -65,19 +73,18 @@ export default function InputInfo() {
         md:mt-4 md:gap-4 md:w-35
         lg:mt-5 lg:ml-12 lg:gap-3">
 
-          <input type="text" placeholder="Middle Name"
+          <input type="text" placeholder="Middle Name" value={middleName} onChange={(e)=>setMiddleName(e.target.value)}
           className="rounded-md bg-sf border-none mt-1 pl-5 pr-5 py-2 text-xs text-accent
           placeholder:text-xs placeholder-gray-400
           md:placeholder:text-sm md:py-2 md:mt-0 md:
           lg:w-3/5 lg:h-12 lg:rounded-lg" />
 
-          <input type="text" placeholder="Last Name"
+          <input type="text" placeholder="Last Name" value={lastName} onChange={(e)=>setLastName(e.target.value)}
           className="rounded-md bg-sf border-none pl-5 pr-5 py-2 text-xs text-accent
           placeholder:text-xs placeholder-gray-400
           md:placeholder:text-sm md:py-2
           lg:w-3/5 lg:h-12 lg:rounded-lg" />
         </div>
-
 
         {/* dropdown menu */}
         <div className="flex items-center min-[424px]:px-4 md:mt-4 xl:mr-3">
@@ -89,17 +96,17 @@ export default function InputInfo() {
           <h1 className="hidden md:flex font-semibold text-tc text-5xl uppercase ml-12 mt-7 lg:ml-20 xl:text-6xl xl:ml-18">
             Visitor <br/> Information
           </h1>
-
+        
           <div className="w-full flex md:content-end md:justify-end md:pr-9 md:mt-14 ">
-          <Link
-                href="/register/input-face"
-                className={`${poppins.className} inline-flex items-center justify-center h-9 px-6 mt-8 mx-auto text-sm uppercase font-semibold tracking-wide text-white transition duration-200 rounded-lg shadow-md bg-primary hover:bg-red-800 focus:shadow-outline focus:outline-none w-4/5
-                md:mx-0 md:rounded-xl
-                lg:h-12 lg:text-lg xl:text-2xl xl:h-12 xl:w-2/5 xl:mr-24`}
-              >
-                Next
-          </Link>
-
+            <Link href={{
+              pathname:"/register/face",
+              query:student
+            }}
+                  className={`${poppins.className} inline-flex items-center justify-center h-9 px-6 mt-8 mx-auto text-sm uppercase font-semibold tracking-wide text-white transition duration-200 rounded-lg shadow-md bg-primary hover:bg-red-800 focus:shadow-outline focus:outline-none w-4/5
+                  md:mx-0 md:rounded-xl
+                  lg:h-12 lg:text-lg xl:text-2xl xl:h-12 xl:w-2/5 xl:mr-24`}
+                >Next
+            </Link> 
           </div>
 
         </div>

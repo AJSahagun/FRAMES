@@ -6,10 +6,17 @@ import Image from "next/image";
 import Webcam from "react-webcam";
 import dataURLtoFile from "react-webcam";
 import { createClient } from '@supabase/supabase-js';
-
+import { useSearchParams } from 'next/navigation';
 export default function Face() {
   const webcamRef = useRef<Webcam>(null);
-
+  
+  const searchParams= useSearchParams()
+  const student={
+    'srCode':searchParams.get('srCode'),
+    'firstName':searchParams.get('firstName'),
+    'middleName':searchParams.get('middleName'),
+    'lastName':searchParams.get('lastName'),
+  }
   const capturePhoto = React.useCallback(() => {
     if (webcamRef.current) {
       const imageSrc = webcamRef.current.getScreenshot();
@@ -103,6 +110,12 @@ export default function Face() {
 
 
          </button>
+
+      <Link href={{
+        pathname:'/register/check-info',
+        query:student
+      }}>Next
+      </Link>
 
       </div>
 

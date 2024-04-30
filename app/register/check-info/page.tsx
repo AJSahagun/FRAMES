@@ -1,37 +1,94 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Register from '../page';
 import Link from 'next/link';
 import BSU_FSLogo from '@/app/_components/BSU_FSLogo';
 import { noto_sans, poppins } from '@/app/fonts';
-import { useRouter } from 'next/navigation'; 
+import { useRouter, useSearchParams } from 'next/navigation'; 
+import { supabase } from '@/lib/supabase';
+import { AnyARecord } from 'dns';
+import Modal from '@/app/_components/Modal';
 
 export default function CheckInfo() {
   const [editable, setEditable] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [resultModal, setResultModal]= useState(false);
   const router = useRouter(); 
 
-  const handleEditClick = () => {
-    setEditable(!editable);
-  };
+  // variables for dynamic modal
+  const [result, setResult] = useState(true); // State for result header
+  const [result_header, setResultHeader] = useState(""); // State for result header
+  const [result_msg, setResultMsg] = useState(""); // State for result message
 
-  const handleConfirmClick = () => {
-    setShowSuccessModal(true);
-    setTimeout(() => {
-      router.push('/');
-    }, 2000);
+  // for input fields
+  const [firstName, setFirstName] = useState('');
+  const [middleName, setMiddleName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [srCode, setSrCode] = useState('');
+
+  //getting data from register page
+  const searchParams= useSearchParams()
+  useEffect(() => {
+    const initFunc = (searchParams:any) => {
+      setSrCode(searchParams.get('srCode'));
+      setFirstName(searchParams.get('firstName'));
+      setMiddleName(searchParams.get('middleName'));
+      setLastName(searchParams.get('lastName'));
+    };
+    initFunc(searchParams);
+  }, [searchParams]);
+
+  
+  const handleEditClick = () => {
+    setEditable(!editable); 
   };
 
   const handleCloseModal = () => {
-    setShowSuccessModal(false);
-    router.push('/'); 
+    setResultModal(false);
+    if(result) router.push('/') 
   };
+  const setModalTrigger = (header:string, msg:string, isSuccess:boolean) =>{
+    setResult(isSuccess)
+    setResultHeader(header); // Set result header state
+    setResultMsg(msg); 
+    setResultModal(true);
+  }
+
+
+  // for supabase to insert data
+  const insertRegistration = async() =>{
+    try {
+      const { data, error } = await supabase
+      .from("Student")
+      .insert({
+        sr_code: srCode,
+        first_name: firstName,
+        middle_name: middleName,
+        last_name: lastName,
+        department:'CICS',
+        program: 'Compsci',
+        
+      })
+      if(error) throw error
+      else setModalTrigger("Success", "Your registration has been completed successfully.", true)
+    } 
+    catch (e:any) {
+      if (e.code === '23505') {
+        setModalTrigger("Sr-code already exists", "Please input unique sr-code. If you think this is a problem, please contact the admin.", false)
+
+      } else {
+        setModalTrigger("Error", "There's an error, please contact the admin.", false)
+      }
+    }
+
+    
+    
+  }
+
 
   return (
     <>
       <div className="w-full relative bg-background">
-
         {/* Logos */}
         <div className="w-full flex justify-center md:justify-start">
           <Image
@@ -63,7 +120,7 @@ export default function CheckInfo() {
                     alt="Picture of Scanned Face"
                     width={1100}
                     height={868}
-                  />
+                  /> 
                 </Link>
               </div>
 
@@ -71,27 +128,27 @@ export default function CheckInfo() {
               <div className="lg:w-9/12">
 
                 <div className="flex flex-col gap-2">
-                  <input
-                    type="text"
+                  <input value={firstName} onChange={(e)=>setFirstName(e.target.value)}
+                    type="text" 
                     className="rounded-md bg-sf pl-5 pr-12 py-2 lg:pr-10 lg:w-full border-none"
                     disabled={!editable} // Disable based on the editable state
                   />
 
                   <input
-                    type="text"
+                    type="text" value={middleName} onChange={(e)=>setMiddleName(e.target.value)}
                     className="rounded-md bg-sf pl-5 pr-12 py-2 lg:pr-10 lg:w-full border-none"
                     disabled={!editable} // Disable based on the editable state
                   />
 
                   <input
-                    type="text"
+                    type="text" value={lastName} onChange={(e)=>setLastName(e.target.value)}
                     className="rounded-md bg-sf pl-5 pr-12 py-2 lg:pr-10 lg:w-full border-none"
                     disabled={!editable} // Disable based on the editable state
                   />
 
                   <input
-                    type="text"
-                    className="rounded-md bg-sf pl-5 pr-12 py-2 lg:pr-10 lg:w-full border-none"
+                    type="text" value={srCode} onChange={(e)=>setSrCode(e.target.value)}
+                    className="rounded-md bg-sf pl-5 pr-12 py-2 lg:pr-10 lg:w-full border-none text-white"
                     style={{ backgroundColor: '#252339' }}
                     disabled={!editable} // Disable based on the editable state
                   />
@@ -125,31 +182,19 @@ export default function CheckInfo() {
               <button
                 className={`${poppins.className} rounded-md bg-transparent text-white px-4 py-2 flex justify-center items-center lg:ml-4`}
                 style={{ backgroundColor: '#C30D26', fontWeight: '600', maxWidth: '380px', width: '100%', height: '50px' }}
-                onClick={handleConfirmClick}
+                onClick={insertRegistration}
               >
                 CONFIRM
               </button>
             </div>
             
-            {/* Pop-up Message */}
-            {showSuccessModal && (
-              <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
-              
-                <div className="bg-white p-8 rounded-md shadow-md flex flex-col items-center justify-center">
-                  <h2 className="text-lg font-semibold mb-4">Registration Successful!</h2>
-                  <p>Your registration has been completed successfully.</p>
-                  <button
-                    className="mt-4 bg-gray-800 text-white px-4 py-2 rounded-md"
-                    style={{ backgroundColor: '#C30D26'}}
-                    onClick={handleCloseModal}
-                  >
-                    Close
-                  </button>
-                </div>
+           
 
-            </div>
-            )}
-            
+            {resultModal && (
+              <Modal header={result_header} message={result_msg} onClose={handleCloseModal}/>
+            )}  
+
+
           </div>
         </div>
       </div>
