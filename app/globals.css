@@ -47,5 +47,13 @@
       --ring: 240 4.9% 83.9%;
     } */
 
+    @layer base {
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+
 
   }

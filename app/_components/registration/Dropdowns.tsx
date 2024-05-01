@@ -18,7 +18,7 @@ export function DeptDropdown({ onDeptChange }: DeptDropdownProps) {
     <select
       name="selectedDept"
       id={collegeDeptId}
-      className="flex text-left items-center bg-sf rounded-md border-none pl-5 pr-5 py-2 text-gray-400 text-xs md:text-sm md:py-2 lg:h-12 lg:rounded-lg"
+      className="flex text-left items-center bg-sf rounded-md border-none pl-5 pr-5 text-gray-400 text-xs md:text-sm md:py-2 lg:h-12 lg:rounded-lg"
       value={selectedDept}
       onChange={handleDeptChange}
     >
@@ -46,14 +46,14 @@ export function ProgramDropdown() {
 
   return (
     <div className="w-full flex flex-col ml-7 mr-7 gap-2 mt-8
-    lg:gap-3 lg:mt-6 lg:ml-7 lg:mr-7 xl:mt-12">
+    lg:gap-3 lg:mt-6 lg:ml-12 lg:mr-12 xl:mt-12">
       <DeptDropdown onDeptChange={setSelectedDept} />
       <select
         name="selectedProgram"
         id={collegeProgId}
         className="flex text-left items-center bg-sf rounded-md border-none pl-5 pr-5 py-2 text-gray-400 text-xs md:text-sm md:py-2 lg:h-12 lg:rounded-lg"
       >
-        
+
         {/* not working */}
         <option value="" disabled hidden className="text-gray-400">
           Select College Program
