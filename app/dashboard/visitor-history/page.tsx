@@ -1,5 +1,7 @@
+'use client'
 import SideBar from "@/app/_components/dashboard-page/SideBar";
 import { noto_sans, poppins } from "@/app/fonts";
+import Link from 'next/link';
 
 export default function VisitorHistory() {
     return (
@@ -34,10 +36,29 @@ export default function VisitorHistory() {
                         <h4 style={{width: '35%' }}> Name</h4>
                         <h4 style={{width: '30%'}}> Program</h4>
                     </div>
-                    <div className= {`${noto_sans.className} flex rounded-sm shadow-md mt-3 pt-2 pl-5 flex-row}`} id="cardTitles" style={{ backgroundColor: 'white', color: 'black', fontWeight: '500', height: '40px', width: '100%' }}>
-                        <h4 style={{width: '30%'}}></h4>
-                        <h4 style={{width: '35%' }}></h4>
-                        <h4 style={{width: '30%'}}></h4>
+                    { /**Div class for the records container */}
+                    <div>
+                        <Link href="/dashboard/visitor-log">
+                        <div
+                            className={`${noto_sans.className} flex rounded-sm shadow-md mt-3 pt-2 pl-5 flex-row`}
+                            id="cardTitles"
+                            style={{
+                            backgroundColor: 'white',
+                            color: 'black',
+                            fontWeight: '500',
+                            height: '40px',
+                            width: '100%',
+                            cursor: 'pointer', 
+                            transition: 'background-color 0.3s ease', 
+                            }}
+                        >
+                        </div>
+                        </Link>
+                        <style jsx>{`
+                        #cardTitles:hover {
+                            background-color: #f0f0f0; /* Change to desired hover background color */
+                        }
+                        `}</style>
                     </div>
 
                 </div>
