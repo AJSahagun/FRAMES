@@ -13,6 +13,7 @@ export function DeptDropdown({ onDeptChange }: DeptDropdownProps) {
     setSelectedDept(dept);
     onDeptChange(dept);
   };
+  const test="Hello"
 
   return (
     <select
@@ -33,9 +34,14 @@ export function DeptDropdown({ onDeptChange }: DeptDropdownProps) {
   );
 }
 
-export function ProgramDropdown() {
+export function ProgramDropdown(dep:any) {
   const collegeProgId = useId();
   const [selectedDept, setSelectedDept] = useState('');
+
+  const handleDeptChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const dept = event.target.value;
+    setSelectedDept(dept);
+  };
 
   const programOptions: { [key: string]: string[] } = {
     CAFAD: [''],
@@ -47,7 +53,7 @@ export function ProgramDropdown() {
   return (
     <div className="w-full flex flex-col ml-7 mr-7 gap-2 mt-8
     lg:gap-3 lg:mt-6 lg:ml-12 lg:mr-12 xl:mt-12">
-      <DeptDropdown onDeptChange={setSelectedDept} />
+      {/* <DeptDropdown onDeptChange={setSelectedDept} /> */}
       <select
         name="selectedProgram"
         id={collegeProgId}

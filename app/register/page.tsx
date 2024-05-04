@@ -17,16 +17,18 @@ export default function InputInfo() {
   const [department, setDepartment] = useState('');
   const [program, setProgram] = useState('');
 
-  const student={srCode,firstName,middleName,lastName}
+  const student={srCode,firstName,middleName,lastName, selectedDept}
   const handleDeptChange = (dept: string) => {
     setSelectedDept(dept);
   };
+
+  // const dropdown=(program:any) => {
+  //   setProgram(program)
+  // }
  
   return (
     <div className="w-full relative bg-background ">
-
       <div className="w-full flex justify-center md:justify-start">
-
         {/* link needs minor fix */}
         <Link href="/" className="flex w-full justify-center md:justify-start">
 
@@ -88,7 +90,8 @@ export default function InputInfo() {
 
         {/* dropdown menu */}
         <div className="flex items-center min-[424px]:px-4 md:mt-4 xl:mr-3">
-          <ProgramDropdown/>
+          <DeptDropdown onDeptChange={handleDeptChange}/>
+          <ProgramDropdown />
         </div>
 
         <div className="flex flex-row ">
