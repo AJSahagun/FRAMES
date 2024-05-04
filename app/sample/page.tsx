@@ -1,5 +1,6 @@
 'use client'
 
+import { variableGrads } from '@tensorflow/tfjs-core';
 import React, { useEffect, useRef, useState } from 'react';
 
 function App() {
@@ -19,17 +20,17 @@ function App() {
     loadModels()
   },[])
 
-  async function loadModels(){
+  const loadModels = () => {
     Promise.all([
-      // THIS FOR FACE DETECT AND LOAD FROM YOU PUBLIC/MODELS DIRECTORY
-      await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
-      await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
-      await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
-      await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL)
-      ]).then(()=>{
-        faceMyDetect()
-      })
-  }
+      // THIS FOR FACE DETECT AND LOAD FROM YOUR PUBLIC/MODELS DIRECTORY
+      faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+      faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+      faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
+      faceapi.nets.faceExpressionNet.loadFromUri('/models')
+    ]).then(() => {
+      faceMyDetect();
+    });
+  };
 
   // OPEN YOU FACE WEBCAM
   const startVideo = ()=>{
@@ -45,24 +46,19 @@ function App() {
   }
 
   async function faceMyDetect(){
-    startVideo()
+    const detections = await faceapi.detectAllFaces(await faceapi.fetchImage('/photo/normal.jpg'), new faceapi.TinyFaceDetectorOptions()
+          ).withFaceLandmarks().withFaceDescriptors()
     setLoading(false)
-    setInterval(async () => {
-      
-      if (videoRef.current) {
-        console.log("sa loob")
-        const detections = await faceapi.detectAllFaces(videoRef.current,
-          new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors();
-        if(detections.length>0){
-          setIsOneFace(true)
-          console.log("one face")
-        } 
-        console.log("start")
-      }
-      else{
-        console.log("yo")
-      }
+    startVideo()
+    setInterval(async()=> {
+      const detections = await faceapi.detectAllFaces(videoRef.current,new faceapi.TinyFaceDetectorOptions()
+      ).withFaceLandmarks().withFaceDescriptors();
+      if(detections.length>0){
+        console.log(detections)
+      } 
+      console.log(detections)
     }, 1000);
+    
   };
   return (
     <div className="myapp grid grid-cols-10 gap-4 w-screen">
