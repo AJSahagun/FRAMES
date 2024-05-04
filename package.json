@@ -10,26 +10,39 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "latest",
+    "@tensorflow/tfjs-backend-wasm": "^4.19.0",
+    "@tensorflow/tfjs-core": "^1.2.9",
+    "@tensorflow/tfjs-node": "^4.19.0",
+    "@vladmandic/face-api": "^1.7.13",
+    "babel-preset-es2015": "^6.24.1",
+    "canvas": "^2.11.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "face-api.js": "^0.20.1",
+    "flash-store": "^1.0.6",
     "geist": "^1.2.1",
     "lucide-react": "^0.368.0",
     "next": "^14.2.2",
+    "numjs": "^0.16.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-webcam": "^7.2.0",
+    "sass": "^1.76.0",
     "tailwind-merge": "^2.2.2",
-    "tailwindcss-animate": "^1.0.7",
-    "typescript": "5.3.3"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",
-    "@types/node": "^20.11.5",
-    "@types/react": "18.2.48",
+    "@types/node": "^20.12.8",
+    "@types/react": "^18.2.48",
     "@types/react-dom": "18.2.18",
     "autoprefixer": "^10.4.19",
     "encoding": "^0.1.13",
     "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.3"
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5"
+  },
+  "resolutions": {
+    "tfjs-image-recognition-base/@tensorflow/tfjs-core": "<=1.2.9"
   }
 }

@@ -7,9 +7,10 @@ import Webcam from "react-webcam";
 import dataURLtoFile from "react-webcam";
 import { createClient } from '@supabase/supabase-js';
 import { useSearchParams } from 'next/navigation';
+
 export default function Face() {
   const webcamRef = useRef<Webcam>(null);
-  
+  const faceapi = require('@vladmandic/face-api');
   const searchParams= useSearchParams()
   const student={
     'srCode':searchParams.get('srCode'),
@@ -24,7 +25,23 @@ export default function Face() {
       console.log(imageSrc);
     }
   }, [webcamRef]);
+
+  const MODEL_URL = '/models'
+  Promise.all([
+    faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL),
+    faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+    faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
+    faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+  ]).then(faceDetection); 
   
+  async function faceDetection() {
+    // const input = document.getElementById('myImg');
+    // Load the image for face detection
+    const img = await faceapi.fetchImage('/picc.jpg');
+    const detection=faceapi.detectAllFaces(img, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors()
+    // const detections2 = await faceapi.detectAllFace(img).withFaceLandmarks().withFaceDescriptor()
+    console.log(detection.descriptor) 
+  } 
 
   // const capturePhoto = React.useCallback(async () => {
   //   if (webcamRef.current) {
@@ -42,29 +59,6 @@ export default function Face() {
   // }, [webcamRef]);
 
 
-  // idk where to put this
-  // const supabaseUrl = 'NEXT_PUBLIC_SUPABASE_URL';
-  // const supabaseKey = 'NEXT_PUBLIC_SUPABASE_ANON_KEY';
-  // const supabase = createClient(supabaseUrl, supabaseKey);
-
-  // const uploadToSupabase = async (file: File) => {
-  //   try {
-  //     const { data, error } = await supabase.storage
-  //       .from('bucket-name') // Replace with your Supabase storage bucket name
-  //       .upload(`${Date.now()}-${file.name}`, file);
-  
-  //     if (error) {
-  //       console.error('Error uploading image:', error);
-  //     } else {
-  //       console.log('Image uploaded successfully:', data);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error uploading image:', error);
-  //   }
-  // };
-
-
-
 
   return (
     <div className="w-full min-h-screen relative bg-background">
@@ -73,12 +67,12 @@ export default function Face() {
         {/* link needs minor fix*/}
         <Link href="/" className="flex w-full justify-center md:justify-start">
 
-        <Image className= "w-3/5 ml-2 pt-16 min-[425px]:w-3/5 min-[425px]:mb-3 md:w-1/3 md:pt-14 md:ml-16 lg:w-2/5 lg:pl-18 xl:pl-20 xl:w-1/4 xl:pt-10"
+        {/* <Image className= "w-3/5 ml-2 pt-16 min-[425px]:w-3/5 min-[425px]:mb-3 md:w-1/3 md:pt-14 md:ml-16 lg:w-2/5 lg:pl-18 xl:pl-20 xl:w-1/4 xl:pt-10"
         src="/logos/FRAMES_title-logo.png"
         alt="FRAMES title logo"
         width={300}
         height={0}
-        />
+        /> */}
         </Link>
 
         <BSU_FSLogo className="top-0 right-0 absolute hidden md:block md:top-0 xl:top-0" />
