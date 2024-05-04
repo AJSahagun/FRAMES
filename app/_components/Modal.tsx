@@ -8,6 +8,7 @@ interface ModalProps {
 
 
 const Modal: React.FC<ModalProps> = ({ header, message, onClose }) => {
+  
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
       <div className="bg-white p-8 rounded-md shadow-md flex flex-col items-center justify-center">
