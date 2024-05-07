@@ -6,6 +6,7 @@ import Image from "next/image";
 import Webcam from "react-webcam";
 import { useRouter, useSearchParams } from 'next/navigation';
 import Modal from '@/app/_components/Modal';
+import { Router } from 'lucide-react';
 
 export default function Face() {
   const faceapi = require('@vladmandic/face-api');
@@ -19,6 +20,7 @@ export default function Face() {
   const [loading, setLoading]=useState(true)
   const [isDone, setIsDone]=useState(false)
 
+  const [result, setResult] = useState(true); // State for result header
   const [resultModal, setResultModal]= useState(false);
   const [result_header, setResultHeader] = useState(""); // State for result header
   const [result_msg, setResultMsg] = useState(""); // State for result message
@@ -34,13 +36,22 @@ export default function Face() {
     'firstName':searchParams.get('firstName'),
     'middleName':searchParams.get('middleName'),
     'lastName':searchParams.get('lastName'),
+
+    // here is all of the encoding
+    
+    'normal': encodeURIComponent(JSON.stringify(normalEncoding)),
+    'pitch': encodeURIComponent(JSON.stringify(pitchEncoding)),
+    'yaw': encodeURIComponent(JSON.stringify(yawEncoding))
   }
   const handleCloseModal = () => setResultModal(false)
-
-
+  const readStudent=()=>{
+    const dictionary = JSON.parse(sessionStorage.getItem('student') || '{}');
+  }
   useEffect(()=>{
-    loadModels()
-  },[])
+    
+    readStudent()
+    // loadModels()
+  })
 
   const loadModels = () => {
     Promise.all([
@@ -63,7 +74,7 @@ export default function Face() {
       }
     })
     .catch((err)=>{
-      console.log(err)
+      setModalTrigger("Error", "There's an error accessing your camera, reload the page", false)
     })
   }
 
@@ -72,7 +83,7 @@ export default function Face() {
     var init=true
     setInterval(async ()=> {
       if(init){
-        const detection = await faceapi.detectAllFaces(await faceapi.fetchImage('/photo/normal.jpg'),tinyFace
+        const detection = await faceapi.detectAllFaces(await faceapi.fetchImage('/photo/init.jpg'),tinyFace
         ).withFaceLandmarks().withFaceDescriptors()
         init=!init
         setLoading(false)
@@ -83,9 +94,10 @@ export default function Face() {
         ).withFaceLandmarks().withFaceDescriptors();
         if(detection.length>0){
           if(evaluateFrame(detection)){
-            console.log("Normal: "+ normalEncoding)
-            console.log("Yaw: "+ yawEncoding)
-            console.log("Pitch: "+ pitchEncoding)
+            // JSON.stringify(normalEncoding)
+            // JSON.stringify(pitchEncoding)
+            // JSON.stringify(yawEncoding)
+            console.log(normalEncoding)
             setIsDone(true)
           }
         }
@@ -96,19 +108,16 @@ export default function Face() {
     }, 1000);
     
   };
-
-
   function evaluateFrame(detection:any){
     return checkAngle(detection)
     // more constraints to put in the future
   }
-
   const checkAngle=(detection:any)=>{
     const yaw=Math.abs(detection[0].angle.yaw)
     const pitch=detection[0].angle.pitch
     const yawThres=80
-    const pitchThres=-14
-
+    const pitchThres=-12
+    
     if(normalEncoding && yawEncoding && pitchEncoding) return true
     else{
       if(yaw>yawThres){ 
@@ -126,6 +135,14 @@ export default function Face() {
       return false
     }
   }
+
+  const setModalTrigger = (header:string, msg:string, isSuccess:boolean) =>{
+    setResult(isSuccess)
+    setResultHeader(header); // Set result header state
+    setResultMsg(msg); 
+    setResultModal(true);
+  }
+
   return (
     <div className="w-full min-h-screen relative bg-background">
       <div className="w-full flex md:justify-start">
@@ -167,7 +184,8 @@ export default function Face() {
           // onChange={handleCheckboxChange} // Handle the onChange event to update the state
           /><label>   Top view</label>
           <br /><br />
-          <Link className="bg-red-500 text-red-100 m-auto p-6 text-xl hover:bg-cyan-600"
+          <Link
+          className="bg-red-500 text-red-100 m-auto p-6 text-xl hover:bg-cyan-600"
           href={{
             pathname:'/register/check-info',
             query:student
