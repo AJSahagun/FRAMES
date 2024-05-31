@@ -25,19 +25,25 @@ export default function CheckInfo() {
   const [middleName, setMiddleName] = useState('');
   const [lastName, setLastName] = useState('');
   const [srCode, setSrCode] = useState('');
+  const [normalEncoding, setNormalEncoding] = useState('');
+  const [pitchEncoding, setPitchEncoding] = useState('');
+  const [yawEncoding, setYawEncoding] = useState('');
 
-  //getting data from register page
-  const searchParams= useSearchParams()
   useEffect(() => {
-    const initFunc = (searchParams:any) => {
-      setSrCode(searchParams.get('srCode'));
-      setFirstName(searchParams.get('firstName'));
-      setMiddleName(searchParams.get('middleName'));
-      setLastName(searchParams.get('lastName'));
-    };
-    initFunc(searchParams);
-  }, [searchParams]);
+    readStudent()
+  },[]);
+  
+  const readStudent=()=>{
+    const student = JSON.parse(sessionStorage.getItem('student') || '{}');
+    setFirstName(student['firstName'])
+    setMiddleName(student['middleName'])
+    setLastName(student['lastName'])
+    setSrCode(student['srCode'])
 
+    setNormalEncoding(student['normal'])
+    setPitchEncoding(student['pitch'])
+    setYawEncoding(student['yaw'])
+  }
   
   const handleEditClick = () => {
     setEditable(!editable); 
@@ -67,8 +73,14 @@ export default function CheckInfo() {
         last_name: lastName,
         department:'CICS',
         program: 'Compsci',
-        
+        face_encoding: {
+          'normal': normalEncoding,
+          'pitch': pitchEncoding,
+          'yaw': yawEncoding
+        },
       })
+
+      // console.log(JSON.stringify(normalEncoding))
       if(error) throw error
       else setModalTrigger("Success", "Your registration has been completed successfully.", true)
     } 

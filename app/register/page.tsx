@@ -6,12 +6,11 @@ import Image from 'next/image';
 import BSU_FSLogo from '../_components/BSU_FSLogo';
 import { DeptDropdown, ProgramDropdown } from '../_components/registration/Dropdowns';
 import { useRouter } from 'next/navigation';
-import router from 'next/router';
 
 export default function InputInfo() {
   const router = useRouter();
   const [selectedDept, setSelectedDept] = useState('');
-
+  
   const [firstName, setFirstName] = useState('');
   const [middleName, setMiddleName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -28,9 +27,6 @@ export default function InputInfo() {
     setSelectedDept(dept);
   };
 
-  // const dropdown=(program:any) => {
-  //   setProgram(program)
-  // }
  
   return (
     <div className="w-full relative bg-background ">
@@ -96,8 +92,7 @@ export default function InputInfo() {
 
         {/* dropdown menu */}
         <div className="flex items-center min-[424px]:px-4 md:mt-4 xl:mr-3">
-          <DeptDropdown onDeptChange={handleDeptChange}/>
-          <ProgramDropdown />
+          <ProgramDropdown dep={department} program={program}/>
         </div>
 
         <div className="flex flex-row ">
@@ -107,7 +102,7 @@ export default function InputInfo() {
           </h1>
         
           <div className="w-full flex md:content-end md:justify-end md:pr-9 md:mt-14 ">
-            <Link href={{
+            {/* <Link href={{
               pathname:"/register/face",
               query:student,
             }}
@@ -115,13 +110,13 @@ export default function InputInfo() {
                   md:mx-0 md:rounded-xl
                   lg:h-12 lg:text-lg xl:text-2xl xl:h-12 xl:w-2/5 xl:mr-24`}
                 >Next
-            </Link> 
+            </Link>  */}
 
             <button onClick={submitInfo}
             className={`${poppins.className} inline-flex items-center justify-center h-9 px-6 mt-8 mx-auto text-sm uppercase font-semibold tracking-wide text-white transition duration-200 rounded-lg shadow-md bg-primary hover:bg-red-800 focus:shadow-outline focus:outline-none w-4/5
             md:mx-0 md:rounded-xl
             lg:h-12 lg:text-lg xl:text-2xl xl:h-12 xl:w-2/5 xl:mr-24`}
-            >try me
+            >Next
             </button>
           </div>
 
